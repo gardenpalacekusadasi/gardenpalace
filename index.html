@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="tr" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garden Palace</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- AOS Animasyon Kütüphanesi -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Lüks Fontlar -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Montserrat:wght@300;400;500&family=Space+Mono&display=swap"
+        rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'hotel-bg': '#F9F8F6',
+                        'hotel-text': '#2B2B2B',
+                        'wix-accent': '#A68A6D',  /* Mocha / Soft Bronze */
+                        'wix-taupe': '#5B4E47',
+                        'wix-dark': '#29221F'
+                    },
+                    fontFamily: {
+                        'serif': ['"Cormorant Garamond"', 'serif'],
+                        'sans': ['Montserrat', 'sans-serif'],
+                        'mono': ['"Space Mono"', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #F9F8F6;
+        }
+
+        /* Özel Takvim Görünümü */
+        select.custom-select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232B2B2B' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 0.5rem center;
+            background-size: 1.2em;
+            padding-right: 2.5rem;
+        }
+
+        .modal-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .hide-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .hide-scroll {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+
+<body class="text-hotel-text font-sans antialiased selection:bg-wix-taupe selection:text-white">
+
+    <!-- ÜST MENÜ -->
+    <header
+<div class="max-w-[1600px] mx-auto px-6 md:px-8 h-24 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-3 text-3xl tracking-wide font-serif text-wix-dark" data-aos="fade-down" data-aos-duration="1000">
+                <img src="resimler/genel/logo.webp" alt="Garden Palace Logo" class="h-8 md:h-10 w-auto object-contain">
+                <span>Garden Palace</span>
+            </a>
+
+            <nav class="hidden lg:flex space-x-4 text-[10px] tracking-[0.2em] font-mono uppercase text-wix-dark">
+                <a href="#rooms" data-en="Our Rooms"
+                    class="border border-wix-dark rounded-full px-5 py-2 hover:bg-wix-accent hover:border-wix-accent hover:text-white transition-colors duration-300"
+                    data-aos="fade-down" data-aos-delay="100">Odalarımız</a>
+                <a href="#story" data-en="Our Story"
+                    class="border border-wix-dark rounded-full px-5 py-2 hover:bg-wix-accent hover:border-wix-accent hover:text-white transition-colors duration-300"
+                    data-aos="fade-down" data-aos-delay="200">Hikayemiz</a>
+                <a href="#restaurant" data-en="Dining"
+                    class="border border-wix-dark rounded-full px-5 py-2 hover:bg-wix-accent hover:border-wix-accent hover:text-white transition-colors duration-300"
+                    data-aos="fade-down" data-aos-delay="300">Restoran</a>
+            </nav>
+
+            <div data-aos="fade-down" data-aos-delay="400">
+                <a href="javascript:void(0)" onclick="sendWhatsApp('header')" data-en="Book Now"
+                    class="bg-wix-dark text-white rounded-full px-7 py-3 text-[10px] font-mono uppercase tracking-[0.15em] hover:bg-wix-accent transition-all duration-500">
+                    Rezervasyon Yap
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- GİRİŞ (HERO) BÖLÜMÜ -->
+    <section id="welcome" class="relative flex flex-col md:flex-row min-h-screen pt-24 bg-wix-accent">
+        <!-- Sol Fotoğraf -->
+        <div class="w-full md:w-1/2 h-[50vh] md:h-auto relative overflow-hidden" data-aos="fade-right"
+            data-aos-duration="1500">
+            <img src="resimler/genel/ana-giris.webp"
+                alt="Mimarisiyle Garden Palace" class="w-full h-full object-cover">
+        </div>
+
+        <!-- Sağ Mocha Renk Alan -->
+        <div class="w-full md:w-1/2 flex items-center justify-center p-10 lg:p-24 text-white">
+            <div class="max-w-lg" data-aos="fade-left" data-aos-duration="1500" data-aos-delay="200">
+                <h1 data-en="Your Gateway<br>to Serenity" class="text-6xl lg:text-8xl font-serif leading-[0.9] mb-8">
+                    Huzura<br>Açılan<br>Kapınız</h1>
+                <p data-en="Just a short walk from the sea, nestled in a lush, peaceful garden. Experience authentic Aegean warmth, comfort, and tranquility in the heart of Kuşadası."
+                    class="font-mono text-[11px] uppercase tracking-widest leading-relaxed mb-10 opacity-90">
+                    Denize yürüme mesafesinde, yemyeşil ve huzurlu bir bahçenin içinde. Kuşadası'nın merkezinde samimi bir Ege
+                    misafirperverliği ve dinginliği yaşayın.
+                </p>
+                <a href="javascript:void(0)" onclick="sendWhatsApp('hero')" data-en="Book Now"
+                    class="inline-block bg-white text-wix-accent rounded-full px-8 py-4 text-[10px] font-mono tracking-[0.2em] uppercase hover:bg-wix-dark hover:text-white transition duration-500">
+                    Hemen Ayırt
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- MÜSAİTLİK SORGULAMA PANELİ (GÜN/AY/YIL FORMATINA ZORLANDI) -->
+    <section class="relative z-20 bg-white border-b border-gray-100" data-aos="fade-up" data-aos-duration="1000">
+        <div class="max-w-[1600px] mx-auto flex flex-col md:flex-row">
+            <div
+                class="flex-1 border-b md:border-b-0 md:border-r border-gray-200 p-6 md:p-8 flex flex-col justify-center relative">
+                <label data-en="Check-in"
+                    class="block text-[10px] uppercase tracking-[0.2em] font-mono text-gray-500 mb-2">Giriş
+                    Tarihi</label>
+                <div class="relative w-full">
+                    <!-- Kullanıcının Gördüğü Kısım (Sadece DD/MM/YYYY Gösterir) -->
+                    <input type="text" id="checkinDisplay" readonly
+                        class="w-full text-hotel-text font-serif text-2xl md:text-3xl focus:outline-none bg-transparent cursor-pointer relative z-10">
+                    <!-- Tıklanabilir Gizli Takvim Aracı -->
+                    <input type="date" id="checkinDate"
+                        class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20"
+                        onchange="updateDateDisplay('checkin')">
+                </div>
+            </div>
+
+            <div
+                class="flex-1 border-b md:border-b-0 md:border-r border-gray-200 p-6 md:p-8 flex flex-col justify-center relative">
+                <label data-en="Check-out"
+                    class="block text-[10px] uppercase tracking-[0.2em] font-mono text-gray-500 mb-2">Çıkış
+                    Tarihi</label>
+                <div class="relative w-full">
+                    <!-- Kullanıcının Gördüğü Kısım -->
+                    <input type="text" id="checkoutDisplay" readonly
+                        class="w-full text-hotel-text font-serif text-2xl md:text-3xl focus:outline-none bg-transparent cursor-pointer relative z-10">
+                    <!-- Tıklanabilir Gizli Takvim Aracı -->
+                    <input type="date" id="checkoutDate"
+                        class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-20"
+                        onchange="updateDateDisplay('checkout')">
+                </div>
+            </div>
+
+            <div class="flex-1 p-6 md:p-8 flex flex-col justify-center">
+                <label data-en="Guests"
+                    class="block text-[10px] uppercase tracking-[0.2em] font-mono text-gray-500 mb-2">Misafir</label>
+                <select id="guestSelect"
+                    class="custom-select w-full text-hotel-text font-serif text-2xl md:text-3xl focus:outline-none bg-transparent cursor-pointer relative z-20">
+                    <option>2 Misafir, 1 Oda</option>
+                    <option>1 Misafir, 1 Oda</option>
+                    <option>3 Misafir, 1 Oda</option>
+                    <option>4 Misafir, 2 Oda</option>
+                </select>
+            </div>
+
+            <button onclick="checkAvailabilityWhatsApp()" data-en="Check Availability"
+                class="bg-wix-dark text-white md:w-64 py-6 md:py-0 text-[11px] font-mono uppercase tracking-[0.2em] hover:bg-wix-accent hover:text-white transition-colors duration-500">
+                Müsaitlik Ara
+            </button>
+        </div>
+    </section>
+
+    <!-- ODALAR VİTRİNİ -->
+    <section id="rooms" class="py-24 px-4 md:px-8 max-w-[1600px] mx-auto overflow-hidden">
+        <div class="text-center mb-20" data-aos="fade-up" data-aos-duration="1000">
+            <h2 data-en="Spaces to Dream in" class="text-5xl lg:text-7xl font-serif text-wix-dark mb-6">Hayallere
+                Sığmayan Alanlar</h2>
+            <div class="flex flex-col md:flex-row justify-center items-center gap-8">
+                <p data-en="Discover our curated collection of rooms, where thoughtful architecture meets serene comfort."
+                    class="font-mono text-xs uppercase tracking-widest text-gray-500 text-center md:text-left max-w-sm">
+                    Mimari zarafetin dingin bir konforla buluştuğu, özenle tasarlanmış odalarımızı keşfedin.
+                </p>
+            </div>
+        </div>
+    
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+            <!-- Oda 1: Superior -->
+            <div class="group bg-white p-6 shadow-sm hover:shadow-xl transition-shadow duration-500 flex flex-col h-full cursor-pointer"
+                data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100" onclick="openRoomDetails('superior')">
+                <div class="overflow-hidden mb-6 aspect-video relative">
+                    <img src="resimler/odalar/superior/0.webp" alt="Superior Oda"
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[2000ms] ease-out">
+                    <div data-en="8.5 Very Good"
+                        class="absolute top-4 left-4 bg-wix-accent text-white text-xs font-semibold px-2 py-1 rounded">
+                        8,5 Çok İyi</div>
+                </div>
+                <h3 data-en="Superior King Room"
+                    class="text-xl font-serif mb-4 text-wix-dark group-hover:text-wix-accent transition">Superior Tek
+                    Büyük Yataklı Oda</h3>
+    
+                <div class="space-y-2 text-sm text-gray-600 font-light mb-8 flex-grow">
+                    <p class="text-wix-accent font-medium flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7">
+                            </path>
+                        </svg>
+                        <span data-en="Street View">Sokak Manzaralı</span>
+                    </p>
+                    <p class="flex items-center gap-2"><svg class="w-4 h-4 text-wix-accent" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4">
+                            </path>
+                        </svg> <span data-en="20 sqm">20 metrekare</span></p>
+                    <p class="flex items-center gap-2"><svg class="w-4 h-4 text-wix-accent" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z">
+                            </path>
+                        </svg>
+                        <span data-en="2 Guests">2 Kişilik</span>
+                    </p>
+                    <p class="flex items-center gap-2"><svg class="w-4 h-4 text-wix-accent flex-shrink-0" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                d="M3 12h18m-18 0v6m18-6v6m-3-6V8a2 2 0 00-2-2H8a2 2 0 00-2 2v4m0 0h8"></path>
+                        </svg>
+                        <span data-en="1 Queen Bed">1 Çift Kişilik (Queen) Yatak</span>
+                    </p>
+                </div>
+    
+                <div class="border-t border-gray-100 pt-4 mt-auto">
+                    <span data-en="More details >"
+                        class="text-wix-dark text-sm font-medium group-hover:text-wix-accent transition">Daha çok detay
+                        ></span>
+                </div>
+            </div>
+    
+            <!-- Oda 2: Deluxe -->
+            <div class="group bg-white p-6 shadow-sm hover:shadow-xl transition-shadow duration-500 flex flex-col h-full cursor-pointer"
+                data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200" onclick="openRoomDetails('deluxe')">
+                <div class="overflow-hidden mb-6 aspect-video relative">
+                    <img src="resimler/odalar/deluxe/0.webp" alt="Deluxe Oda"
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[2000ms] ease-out">
+                    <div data-en="8.7 Very Good"
+                        class="absolute top-4 left-4 bg-wix-accent text-white text-xs font-semibold px-2 py-1 rounded">
+                        8,7 Çok İyi</div>
+                </div>
+                <h3 data-en="Deluxe Suite"
+                    class="text-xl font-serif mb-4 text-wix-dark group-hover:text-wix-accent transition">Deluxe Tek
+                    Büyük Yataklı Oda</h3>
+    
+                <div class="space-y-2 text-sm text-gray-600 font-light mb-8 flex-grow">
+                    <p class="text-wix-accent font-medium flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9">
+                            </path>
+                        </svg>
+                        <span data-en="Garden View">Bahçe Manzaralı</span>
+                    </p>
+                    <p class="flex items-center gap-2"><svg class="w-4 h-4 text-wix-accent" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4">
+                            </path>
+                        </svg> <span data-en="23 sqm">23 metrekare</span></p>
+                    <p class="flex items-center gap-2"><svg class="w-4 h-4 text-wix-accent" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z">
+                            </path>
+                        </svg>
+                        <span data-en="2-3 Guests">2-3 Kişilik</span>
+                    </p>
+                    <p class="flex items-start gap-2"><svg class="w-4 h-4 text-wix-accent mt-0.5 flex-shrink-0" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                d="M3 12h18m-18 0v6m18-6v6m-3-6V8a2 2 0 00-2-2H8a2 2 0 00-2 2v4m0 0h8"></path>
+                        </svg>
+                        <span data-en="1 Queen OR <br> 1 Queen + 1 Twin Bed">1 Çift Kişilik (Queen) <br> VEYA 1 Çift + 1 Tek
+                            Yatak</span>
+                    </p>
+                </div>
+    
+                <div class="border-t border-gray-100 pt-4 mt-auto">
+                    <span data-en="More details >"
+                        class="text-wix-dark text-sm font-medium group-hover:text-wix-accent transition">Daha çok detay
+                        ></span>
+                </div>
+            </div>
+    
+            <!-- Oda 3: Economy -->
+            <div class="group bg-white p-6 shadow-sm hover:shadow-xl transition-shadow duration-500 flex flex-col h-full cursor-pointer"
+                data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300" onclick="openRoomDetails('economy')">
+                <div class="overflow-hidden mb-6 aspect-video relative">
+                    <img src="resimler/odalar/economy/0.webp" alt="Economy Oda"
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[2000ms] ease-out">
+                    <div data-en="8.6 Very Good"
+                        class="absolute top-4 left-4 bg-wix-accent text-white text-xs font-semibold px-2 py-1 rounded">
+                        8,6 Çok İyi</div>
+                </div>
+                <h3 data-en="Economy Twin or Double Room"
+                    class="text-xl font-serif mb-4 text-wix-dark group-hover:text-wix-accent transition">Economy İki
+                    Ayrı Yataklı Oda</h3>
+    
+                <div class="space-y-2 text-sm text-gray-600 font-light mb-8 flex-grow">
+                    <p class="flex items-center gap-2"><svg class="w-4 h-4 text-wix-accent" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4">
+                            </path>
+                        </svg> <span data-en="16 sqm">16 metrekare</span></p>
+                    <p class="flex items-center gap-2"><svg class="w-4 h-4 text-wix-accent" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z">
+                            </path>
+                        </svg>
+                        <span data-en="2 Guests">2 Kişilik</span>
+                    </p>
+                    <p class="flex items-start gap-2"><svg class="w-4 h-4 text-wix-accent mt-0.5 flex-shrink-0" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                d="M3 12h18m-18 0v6m18-6v6m-3-6V8a2 2 0 00-2-2H8a2 2 0 00-2 2v4m0 0h8"></path>
+                        </svg>
+                        <span data-en="2 Twin OR <br> 1 Queen Bed">2 Tekli Yatak <br> VEYA 1 Çiftli Yatak</span>
+                    </p>
+                </div>
+    
+                <div class="border-t border-gray-100 pt-4 mt-auto">
+                    <span data-en="More details >"
+                        class="text-wix-dark text-sm font-medium group-hover:text-wix-accent transition">Daha çok detay
+                        ></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MÜŞTERİ YORUMU (SLIDER) -->
+    <section id="story" class="py-32 bg-wix-accent text-center relative overflow-hidden group" data-aos="fade-up"
+        data-aos-duration="1200">
+        <button onclick="prevTestimonial()"
+            class="absolute left-4 md:left-12 top-1/2 -translate-y-1/2 w-10 h-10 md:w-14 md:h-14 border border-white text-white rounded-full flex items-center justify-center hover:bg-white hover:text-wix-accent transition duration-300 text-lg z-20">
+            &larr;
+        </button>
+
+        <div class="max-w-5xl mx-auto overflow-hidden relative px-16 md:px-0">
+            <div id="testimonial-track" class="flex transition-transform duration-700 ease-in-out">
+                <!-- JS Doldurur -->
+            </div>
+        </div>
+
+        <button onclick="nextTestimonial()"
+            class="absolute right-4 md:right-12 top-1/2 -translate-y-1/2 w-10 h-10 md:w-14 md:h-14 border border-white text-white rounded-full flex items-center justify-center hover:bg-white hover:text-wix-accent transition duration-300 text-lg z-20">
+            &rarr;
+        </button>
+    </section>
+
+    <!-- ESENLİK BÖLÜMÜ -->
+    <section class="flex flex-col md:flex-row bg-white overflow-hidden">
+        <div class="w-full md:w-1/2 h-[50vh] md:h-auto" data-aos="fade-right" data-aos-duration="1200">
+            <img src="resimler/esenlik/0.webp" alt="Dingin Bir Kaçış" class="w-full h-full object-cover">
+        </div>
+        <div class="w-full md:w-1/2 flex items-center p-12 lg:p-24" data-aos="fade-left" data-aos-duration="1200">
+            <div class="max-w-md">
+                <h2 data-en="A Sanctuary of Serenity"
+                    class="text-5xl lg:text-6xl font-serif mb-10 text-wix-dark leading-tight">Dingin Bir Kaçış
+                </h2>
+                <p data-en="Step through our sunlit doors into a peaceful oasis. From cozy corners with a good book to lush garden strolls, immerse yourself in the slow rhythms of boutique living."
+                    class="font-mono text-xs uppercase tracking-widest leading-relaxed text-gray-500 mb-8">
+                    Güneş alan kapılarımızdan huzurlu bir vahaya adım atın. Bahçe manzaralı dinlenme köşelerimizden yemyeşil
+                    yürüyüş yollarına kadar, butik yaşamın sakin ritmini hissedin.
+                </p>
+                <a href="#contact" data-en="Learn More"
+                    class="inline-block border border-wix-dark rounded-full px-6 py-3 text-[10px] font-mono uppercase tracking-[0.2em] hover:bg-wix-dark hover:text-white transition duration-300">Daha
+                    Fazla Bilgi</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- RESTORAN BÖLÜMÜ -->
+    <section id="restaurant" class="bg-wix-taupe text-hotel-bg flex flex-col md:flex-row overflow-hidden">
+        <div class="w-full md:w-2/5 p-12 lg:p-24 flex flex-col justify-center" data-aos="fade-right"
+            data-aos-duration="1200">
+            <h2 data-en="Flavors in The Garden" class="text-5xl lg:text-7xl font-serif mb-10 leading-tight">Bahçede Lezzet &
+                Keyif
+            </h2>
+            <p data-en="Start your morning with our rich, local breakfast in the lush garden. Unwind throughout the day at our cozy bar with refreshing drinks, hot coffee, and light bites."
+                class="font-mono text-xs uppercase tracking-widest leading-relaxed mb-12 opacity-80">
+                Sabahınıza yeşillikler içindeki bahçemizde taze ve yöresel kahvaltımızla başlayın. Gün boyu samimi bahçe
+                barımızda soğuk içecekler, kahve ve keyifli atıştırmalıklarla dinlenin.
+            </p>
+            <a href="javascript:void(0)" onclick="sendWhatsApp('restaurant')" data-en="Contact Us"
+                class="inline-block border border-hotel-bg rounded-full px-8 py-4 text-[10px] font-mono tracking-[0.2em] uppercase hover:bg-hotel-bg hover:text-wix-taupe transition duration-500 w-fit">
+                İletişime Geçin
+            </a>
+        </div>
+        <div class="w-full md:w-3/5 flex gap-4 p-8 lg:p-12 items-center" data-aos="fade-left" data-aos-duration="1200">
+            <img src="resimler/restoran/0.webp"
+                alt="Kokteyl" class="w-1/2 h-[350px] object-cover mt-20">
+            <img src="resimler/restoran/1.webp"
+                alt="Restoran" class="w-1/2 h-[550px] object-cover">
+        </div>
+    </section>
+
+    <!-- GALERİ -->
+    <section class="py-32 bg-white overflow-hidden text-center">
+        <div class="max-w-3xl mx-auto px-6 mb-16" data-aos="fade-up" data-aos-duration="1000">
+            <h2 data-en="Claim Your Place in the Garden" class="text-5xl lg:text-7xl font-serif mb-8 text-wix-dark">
+                Bahçede Yerinizi Ayırtın</h2>
+            <p data-en="Where authentic stone architecture meets lush greenery. A unique accommodation experience for those seeking peace and tranquility."
+                class="font-mono text-xs uppercase tracking-widest leading-relaxed text-gray-500">
+                Otantik taş mimarinin yemyeşil doğayla buluştuğu yer. Huzur ve dinginlik arayanlar için 
+                benzersiz bir konaklama deneyimi.
+            </p>
+            <div class="mt-8">
+                <a href="javascript:void(0)" onclick="sendWhatsApp('gallery')" data-en="Book Now"
+                    class="inline-block bg-wix-dark text-white rounded-full px-8 py-3 text-[10px] font-mono tracking-[0.2em] uppercase hover:bg-wix-accent hover:text-white transition duration-300">
+                    Hemen Ayırt
+                </a>
+            </div>
+        </div>
+
+        <div class="flex justify-center overflow-x-auto hide-scroll gap-6 px-8 md:px-20 pb-10 items-center" data-aos="fade-up"
+            data-aos-delay="200" data-aos-duration="1200">
+            <img src="resimler/galeri/0.webp"
+                class="w-64 h-[400px] object-cover flex-shrink-0">
+            <img src="resimler/galeri/1.webp"
+                class="w-72 h-[450px] object-cover flex-shrink-0 -mt-10">
+            <img src="resimler/galeri/2.webp"
+                class="w-80 h-[500px] object-cover flex-shrink-0 mt-10">
+            <img src="resimler/galeri/3.webp"
+                class="w-64 h-[350px] object-cover flex-shrink-0">
+            <img src="resimler/galeri/4.webp"
+                class="w-72 h-[450px] object-cover flex-shrink-0 -mt-8">
+        </div>
+    </section>
+
+    <!-- FOOTER / İLETİŞİM (AOS ONCE KALDIRILDI) -->
+    <footer id="contact" class="bg-wix-dark text-hotel-bg pt-20 pb-10 px-8">
+        <div
+            class="max-w-[1600px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 text-center md:text-left relative z-10">
+
+            <div class="md:col-span-2" data-aos="fade-right" data-aos-duration="1000">
+                <h3 class="text-4xl font-serif mb-6 text-white">Garden Palace</h3>
+                <p data-en="Blending the historical texture of Kusadasi with luxury, an unforgettable accommodation experience."
+                    class="text-stone-400 text-sm font-light leading-relaxed max-w-sm mx-auto md:mx-0">Kuşadası'nın
+                    tarihi dokusunu lüks ile harmanlayan, unutulmaz bir konaklama deneyimi.</p>
+            </div>
+
+            <!-- İLETİŞİM İKONLARI -->
+            <div class="flex flex-col items-center md:items-start md:col-span-1" data-aos="fade-up"
+                data-aos-duration="1000">
+                <h4 data-en="Contact Us" class="text-[10px] font-mono uppercase tracking-[0.2em] text-wix-accent mb-6">
+                    Bize Ulaşın</h4>
+
+                <a href="https://maps.app.goo.gl/KpCUd4gWHnTBp8HS9?g_st=ic" target="_blank"
+                    class="flex items-start gap-3 text-stone-300 text-sm font-light mb-4 hover:text-wix-accent transition duration-300 text-left">
+                    <svg class="w-5 h-5 text-wix-accent flex-shrink-0 mt-0.5" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z">
+                        </path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                            d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    </svg>
+                    <span data-en="10 Sari Street, Alacamescit Neighborhood<br>Kusadasi, Aydin">Alacamescit Mah. Sarı Sokak
+                        No:10<br>Kuşadası / Aydın</span>
+                </a>
+
+                <a href="tel:+905373616733"
+                    class="flex items-center gap-3 text-stone-300 text-sm font-light mb-4 hover:text-wix-accent transition duration-300">
+                    <svg class="w-5 h-5 text-wix-accent flex-shrink-0" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                            d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z">
+                        </path>
+                    </svg>
+                    +90 (537) 361 67 33
+                </a>
+
+                <a href="mailto:info@gardenpalace.com"
+                    class="flex items-center gap-3 text-stone-300 text-sm font-light hover:text-wix-accent transition duration-300">
+                    <svg class="w-5 h-5 text-wix-accent flex-shrink-0" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                        </path>
+                    </svg>
+                    info@gardenpalace.com
+                </a>
+            </div>
+
+            <!-- SOSYAL MEDYA İKONLARI -->
+            <div class="flex flex-col items-center md:items-end md:col-span-1" data-aos="fade-left" data-aos-duration="1000">
+                <h4 data-en="Follow Us" class="text-[10px] font-mono uppercase tracking-[0.2em] text-wix-accent mb-6">
+                    Takip Edin</h4>
+            
+                <div class="flex space-x-6">
+                    <!-- Facebook -->
+                    <a href="https://www.facebook.com/kusadasigardenpalace" target="_blank"
+                        class="text-stone-400 hover:text-white hover:scale-110 transition-all duration-300">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                        </svg>
+                    </a>
+            
+                    <!-- Instagram -->
+                    <a href="https://www.instagram.com/kusadasigardenpalace" target="_blank"
+                        class="text-stone-400 hover:text-white hover:scale-110 transition-all duration-300">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path fill-rule="evenodd"
+                                d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div data-en="&copy; 2026 Garden Palace. All Rights Reserved."
+            class="max-w-[1600px] mx-auto mt-12 pt-6 border-t border-stone-800 text-center text-stone-500 text-[10px] font-mono uppercase tracking-widest"
+            data-aos="fade-up" data-aos-delay="200">
+            &copy; 2026 Garden Palace. Tüm Hakları Saklıdır.
+        </div>
+    </footer>
+
+    <!-- ODA DETAY MODALI -->
+    <div id="roomModal"
+        class="fixed inset-0 z-[100] bg-white overflow-y-auto modal-scroll hidden opacity-0 transition-opacity duration-500">
+        <button onclick="closeModal()"
+            class="absolute top-6 right-6 md:top-10 md:right-10 z-50 text-wix-dark hover:text-wix-accent transition transform hover:rotate-90 duration-300">
+            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+
+        <div class="max-w-7xl mx-auto px-6 py-20 md:py-28">
+            <h2 id="modalTitle" class="text-5xl md:text-6xl font-serif text-center mb-16 text-wix-dark">Oda Adı</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-20">
+                <img id="modalImg1" src=""
+                    class="w-full h-[300px] md:h-[600px] object-cover cursor-pointer hover:opacity-90 transition duration-300"
+                    onclick="openGallery(currentRoomId, 0)">
+                <div class="grid grid-rows-2 gap-4">
+                    <img id="modalImg2" src=""
+                        class="w-full h-[142px] md:h-[292px] object-cover cursor-pointer hover:opacity-90 transition duration-300"
+                        onclick="openGallery(currentRoomId, 1)">
+                    <div class="relative w-full h-[142px] md:h-[292px] cursor-pointer group"
+                        onclick="openGallery(currentRoomId, 2)">
+                        <img id="modalImg3" src="" class="w-full h-full object-cover">
+                        <div id="morePhotosOverlay"
+                            class="absolute inset-0 bg-wix-dark/40 hidden flex items-center justify-center group-hover:bg-wix-dark/60 transition duration-300">
+                            <span id="morePhotosText" class="text-white text-5xl font-serif font-light">+2</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-20">
+                <div class="md:col-span-2">
+                    <h3 id="modalLabelAbout" data-en="About the Room" class="text-3xl font-serif mb-6 text-wix-dark">Oda
+                        Hakkında</h3>
+                    <p id="modalDesc" class="text-gray-600 font-sans font-light leading-relaxed mb-12 text-lg"></p>
+
+                    <h3 id="modalLabelFeatures" data-en="Features" class="text-3xl font-serif mb-6 text-wix-dark">
+                        Özellikler</h3>
+                    <ul id="modalFeatures"
+                        class="grid grid-cols-1 sm:grid-cols-2 gap-y-4 gap-x-8 text-sm text-gray-600 font-sans font-light">
+                        <!-- JS Doldurur -->
+                    </ul>
+                </div>
+
+                <div class="bg-hotel-bg p-10 h-fit sticky top-20">
+                    <h3 id="modalLabelReserve" data-en="Make a Reservation"
+                        class="text-2xl font-serif mb-4 text-center text-wix-dark">Rezervasyon Yapın</h3>
+                    <p id="modalLabelDesc"
+                        data-en="Check availability and current prices for this room instantly via WhatsApp."
+                        class="text-xs font-mono uppercase tracking-widest text-gray-500 mb-8 text-center leading-relaxed">
+                        Bu oda için müsaitlik durumunu WhatsApp üzerinden anında öğrenin.</p>
+                    <a id="modalBookingBtn" href="#" target="_blank" data-en="Inquire via WhatsApp"
+                        class="block text-center rounded-full bg-wix-dark text-white w-full py-4 text-[10px] font-mono uppercase tracking-[0.2em] hover:bg-wix-accent transition-colors duration-500">
+                        WhatsApp'tan Sor
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- GALERİ (Lightbox) -->
+    <div id="galleryModal"
+        class="fixed inset-0 z-[200] bg-wix-dark/95 backdrop-blur-md hidden opacity-0 transition-opacity duration-300 flex items-center justify-center">
+        <button onclick="closeGallery()"
+            class="absolute top-6 right-6 md:top-10 md:right-10 text-white hover:text-wix-accent transition transform hover:rotate-90 duration-300 z-50">
+            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+
+        <button onclick="prevImage()"
+            class="absolute left-4 md:left-10 top-1/2 -translate-y-1/2 text-white hover:text-wix-accent transition duration-300 z-50">
+            <svg class="w-12 h-12 md:w-16 md:h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M15 19l-7-7 7-7"></path>
+            </svg>
+        </button>
+
+        <img id="galleryImage" src=""
+            class="max-h-[85vh] max-w-[85vw] object-contain transition-opacity duration-300 shadow-2xl">
+
+        <button onclick="nextImage()"
+            class="absolute right-4 md:right-10 top-1/2 -translate-y-1/2 text-white hover:text-wix-accent transition duration-300 z-50">
+            <svg class="w-12 h-12 md:w-16 md:h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 5l7 7-7 7"></path>
+            </svg>
+        </button>
+
+        <div id="galleryCounter"
+            class="absolute bottom-6 md:bottom-10 left-1/2 -translate-x-1/2 text-white text-[10px] font-mono uppercase tracking-[0.3em]">
+            1 / 5</div>
+    </div>
+
+    <!-- AOS Animasyon Scripti & Diğer Scriptler -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Sayfa Animasyonları (Her inip çıkıldığında sürekli animasyonlu olması için AOS ayarları)
+        window.addEventListener('load', () => {
+            AOS.init({once: false, mirror: true, offset: 50, easing: 'ease-out-cubic'});
+            setTimeout(() => {AOS.refresh();}, 100);
+        });
+
+        // ÇOKLU DİL MOTORU
+        const userLang = navigator.language || navigator.userLanguage;
+        const isTurkish = userLang.toLowerCase().startsWith('tr');
+
+        document.addEventListener("DOMContentLoaded", () => {
+            if (!isTurkish) {
+                document.documentElement.lang = "en";
+                document.querySelectorAll('[data-en]').forEach(el => {
+                    el.innerHTML = el.getAttribute('data-en');
+                });
+                const selectOptions = document.querySelectorAll('#guestSelect option');
+                const enOptions = ["2 Guests, 1 Room", "1 Guest, 1 Room", "3 Guests, 1 Room", "4 Guests, 2 Rooms"];
+                selectOptions.forEach((opt, index) => {
+                    if (enOptions[index]) opt.innerText = enOptions[index];
+                });
+            }
+        });
+
+        // WHATSAPP BUTONLARI İÇİN DİNAMİK YÖNLENDİRME 
+        function sendWhatsApp(source) {
+            let msg = "";
+            if (source === 'header') msg = isTurkish ? "Merhaba, rezervasyon yapmak istiyorum." : "Hello, I would like to make a reservation.";
+            if (source === 'hero') msg = isTurkish ? "Merhaba, hemen ayırtmak istiyorum." : "Hello, I would like to book immediately.";
+            if (source === 'restaurant') msg = isTurkish ? "Restoran için rezervasyon yaptırmak istiyorum." : "I would like to make a reservation for the restaurant.";
+            if (source === 'gallery') msg = isTurkish ? "Güneşteki yerimi ayırtmak istiyorum." : "I would like to book my place in the sun.";
+
+            window.open(`https://wa.me/905373616733?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        // ---- OTOMATİK TARİH AYARLAMA (Müsaitlik Paneli İçin) ----
+        function formatDateToYYYYMMDD(date) {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+
+        function updateDateDisplay(type) {
+            const dateInput = document.getElementById(type + 'Date');
+            const displayInput = document.getElementById(type + 'Display');
+            if (dateInput.value) {
+                const parts = dateInput.value.split('-');
+                // Ekranda Kullanıcı Her Zaman GG/AA/YYYY Görecek
+                displayInput.value = `${parts[2]}/${parts[1]}/${parts[0]}`;
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const today = new Date();
+            const tomorrow = new Date(today);
+            tomorrow.setDate(today.getDate() + 1);
+
+            const dayAfterTomorrow = new Date(today);
+            dayAfterTomorrow.setDate(today.getDate() + 2);
+
+            const checkinDate = document.getElementById('checkinDate');
+            const checkoutDate = document.getElementById('checkoutDate');
+
+            if (checkinDate && checkoutDate) {
+                checkinDate.value = formatDateToYYYYMMDD(tomorrow);
+                checkoutDate.value = formatDateToYYYYMMDD(dayAfterTomorrow);
+
+                updateDateDisplay('checkin');
+                updateDateDisplay('checkout');
+            }
+        });
+
+        // ---- MÜSAİTLİK ARAMA WHATSAPP ENTEGRASYONU (Gün/Ay/Yıl formatlı) ----
+        function checkAvailabilityWhatsApp() {
+            const checkin = document.getElementById('checkinDate').value;
+            const checkout = document.getElementById('checkoutDate').value;
+            const guests = document.getElementById('guestSelect').value;
+
+            // Arka planda YYYY-MM-DD olanı alıp DD/MM/YYYY'ye çevirerek WhatsApp'a atar
+            const formatForWa = (dateStr) => {
+                if (!dateStr) return "";
+                const parts = dateStr.split('-');
+                return `${parts[2]}/${parts[1]}/${parts[0]}`;
+            };
+
+            const checkinFormatted = formatForWa(checkin);
+            const checkoutFormatted = formatForWa(checkout);
+
+            let message = isTurkish
+                ? `Merhaba, ${checkinFormatted} ile ${checkoutFormatted} tarihleri arasında (${guests}) müsaitlik durumu nedir?`
+                : `Hello, what is the availability for between ${checkinFormatted} and ${checkoutFormatted} (${guests})?`;
+
+            const waUrl = `https://wa.me/905373616733?text=` + encodeURIComponent(message);
+            window.open(waUrl, '_blank');
+        }
+
+        // ---- YORUMLAR (TESTIMONIALS) SLIDER MANTIĞI ----
+        const testimonials = [
+            {
+                name: "Kian O'Sullivan",
+                textTr: "\"Mükemmel bir kaçış. Personel bizi çok iyi ağırladı ve kahvaltı tek kelimeyle harikaydı. Kesinlikle geri döneceğiz.\"",
+                textEn: "\"The perfect escape. The staff made us feel so welcome, and the breakfast was simply wonderful. We will be back.\""
+            },
+            {
+                name: "Elif & Can",
+                textTr: "\"Tasarıma ve detaylara gösterilen özene hayran kaldık. Şehrin gürültüsünden uzaklaşıp huzur bulduğumuz tek adres oldu.\"",
+                textEn: "\"We were amazed by the design and attention to detail. It was the only place we found peace away from the city noise.\""
+            },
+            {
+                name: "Sarah Jenkins",
+                textTr: "\"Odaların ferahlığı ve restoranın şık atmosferi muazzamdı. Kendinizi özel hissetmek istiyorsanız hiç düşünmeden gelin.\"",
+                textEn: "\"The spaciousness of the rooms and the elegant atmosphere of the restaurant were magnificent. If you want to feel special, come without hesitation.\""
+            }
+        ];
+
+        let currentTestimonial = 0;
+        let testimonialInterval;
+
+        function renderTestimonials() {
+            const track = document.getElementById('testimonial-track');
+            if (!track) return;
+            track.innerHTML = testimonials.map(t => `
+                <div class="w-full flex-shrink-0 px-12 md:px-24">
+                    <p class="font-mono text-xs tracking-widest uppercase mb-10 text-white/80">${t.name}</p>
+                    <h2 class="text-3xl md:text-5xl lg:text-6xl font-serif leading-snug text-white">${isTurkish ? t.textTr : t.textEn}</h2>
+                </div>
+            `).join('');
+            updateSliderPosition();
+        }
+
+        function updateSliderPosition() {
+            const track = document.getElementById('testimonial-track');
+            if (track) {
+                track.style.transform = `translateX(-${currentTestimonial * 100}%)`;
+            }
+        }
+
+        function nextTestimonial() {
+            currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+            updateSliderPosition();
+            resetTestimonialInterval();
+        }
+
+        function prevTestimonial() {
+            currentTestimonial = (currentTestimonial - 1 + testimonials.length) % testimonials.length;
+            updateSliderPosition();
+            resetTestimonialInterval();
+        }
+
+        function startTestimonialInterval() {
+            testimonialInterval = setInterval(nextTestimonial, 5000);
+        }
+
+        function resetTestimonialInterval() {
+            clearInterval(testimonialInterval);
+            startTestimonialInterval();
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderTestimonials();
+            startTestimonialInterval();
+        });
+
+        // ---- ODA DETAYLARI VE GALERİ MANTIĞI ----
+            const roomData = {
+                superior: {
+                    titleTr: "Superior Tek Büyük Yataklı Oda",
+                    titleEn: "Superior King Room",
+                    descTr: "Tarihi sokağın dokusunu hissedebileceğiniz, özenle tasarlanmış rahat bir yaşam alanı. Şık detayları ve ferah banyosuyla Kuşadası'nın ruhunu odanızda yaşayın.",
+                    descEn: "A carefully designed, comfortable living space where you can feel the texture of the historic street. Experience the spirit of Kusadasi in your room with its elegant details and spacious bathroom.",
+                    images: [
+                        "resimler/odalar/superior/0.webp",
+                        "resimler/odalar/superior/1.webp",
+                        "resimler/odalar/superior/2.webp",
+                        "resimler/odalar/superior/3.webp",
+                        "resimler/odalar/superior/4.webp",
+                        "resimler/odalar/superior/5.webp",
+                        "resimler/odalar/superior/6.webp",
+                    ],
+                    featuresTr: ["Sokak Manzaralı", "20 metrekare", "2 Kişilik", "1 Çift Kişilik (Queen) Yatak", "Ücretsiz Wi-Fi", "Klima", "Özel Banyo"],
+                    featuresEn: ["Street View", "20 sqm", "2 Guests", "1 Queen Bed", "Free Wi-Fi", "Air Conditioning", "Private Bathroom"]
+                },
+                deluxe: {
+                    titleTr: "Deluxe Suit",
+                    titleEn: "Deluxe Suite",
+                    descTr: "Yemyeşil bahçemize açılan pencereleriyle tam bir dinginlik alanı. Geniş kullanım alanı ve ekstra yatak seçeneğiyle, doğayla iç içe lüks bir konaklama deneyimi sunuyor.",
+                    descEn: "A complete space of tranquility with windows opening to our lush garden. It offers a luxurious stay intertwined with nature, featuring a spacious layout and flexible bedding options.",
+                    images: [
+                        "resimler/odalar/deluxe/0.webp",
+                        "resimler/odalar/deluxe/1.webp",
+                        "resimler/odalar/deluxe/2.webp",
+                        "resimler/odalar/deluxe/3.webp",
+                        "resimler/odalar/deluxe/4.webp",
+                        "resimler/odalar/deluxe/5.webp",
+                        "resimler/odalar/deluxe/6.webp",
+                        "resimler/odalar/deluxe/7.webp",
+                        "resimler/odalar/deluxe/8.webp",
+                        "resimler/odalar/deluxe/9.webp",
+                        "resimler/odalar/deluxe/10.webp",
+                        "resimler/odalar/deluxe/11.webp",
+                        "resimler/odalar/deluxe/12.webp",
+                    ],
+                    featuresTr: ["Bahçe Manzaralı", "23 metrekare", "2 veya 3 Kişilik", "1 Çift Kişilik VEYA 1 Çift + 1 Tek Yatak", "Ücretsiz Wi-Fi", "Klima", "Lüks Banyo"],
+                    featuresEn: ["Garden View", "23 sqm", "2-3 Guests", "1 Queen OR 1 Queen + 1 Twin Bed", "Free Wi-Fi", "Air Conditioning", "Luxury Bathroom"]
+                },
+                economy: {
+                    titleTr: "Economy Oda",
+                    titleEn: "Economy Room",
+                    descTr: "Kompakt, rahat ve ekonomik. Gün boyu Kuşadası'nı keşfettikten sonra huzurla dinlenebileceğiniz, konforunuzdan ödün vermeyen samimi bir dinlenme alanı.",
+                    descEn: "Compact, comfortable, and economical. A warm space where you can rest peacefully after exploring Kusadasi all day without compromising your comfort.",
+                    images: [
+                        "resimler/odalar/economy/0.webp",
+                        "resimler/odalar/economy/1.webp",
+                        "resimler/odalar/economy/2.webp",
+                        "resimler/odalar/economy/3.webp",
+                    ],
+                    featuresTr: ["16 metrekare", "2 Kişilik", "2 Tekli VEYA 1 Çiftli Yatak", "Ücretsiz Wi-Fi", "Klima", "Özel Banyo"],
+                    featuresEn: ["16 sqm", "2 Guests", "2 Twin OR 1 Queen Bed", "Free Wi-Fi", "Air Conditioning", "Private Bathroom"]
+                }
+            };
+
+        let currentRoomId = null;
+        let currentImageIndex = 0;
+
+        function openRoomDetails(roomId) {
+            currentRoomId = roomId;
+            const data = roomData[roomId];
+
+            document.getElementById('modalTitle').innerText = isTurkish ? data.titleTr : data.titleEn;
+            document.getElementById('modalDesc').innerText = isTurkish ? data.descTr : data.descEn;
+
+            if (data.images[0]) document.getElementById('modalImg1').src = data.images[0];
+            if (data.images[1]) document.getElementById('modalImg2').src = data.images[1];
+            if (data.images[2]) document.getElementById('modalImg3').src = data.images[2];
+
+            const overlay = document.getElementById('morePhotosOverlay');
+            if (data.images.length > 3) {
+                overlay.classList.remove('hidden');
+                document.getElementById('morePhotosText').innerText = '+' + (data.images.length - 3);
+            } else {
+                overlay.classList.add('hidden');
+            }
+
+            const featuresData = isTurkish ? data.featuresTr : data.featuresEn;
+            const featuresHtml = featuresData.map(f =>
+                `<li class="flex items-center gap-3 border-b border-gray-100 pb-3">
+                    <svg class="w-4 h-4 text-wix-accent flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 13l4 4L19 7"></path></svg> 
+                    ${f}
+                </li>`
+            ).join('');
+            document.getElementById('modalFeatures').innerHTML = featuresHtml;
+
+            const waMessage = isTurkish
+                ? `Merhaba, ${data.titleTr} için rezervasyon yapmak istiyorum.`
+                : `Hello, I would like to make a reservation for the ${data.titleEn}.`;
+
+            document.getElementById('modalBookingBtn').href = "https://wa.me/905373616733?text=" + encodeURIComponent(waMessage);
+
+            const modal = document.getElementById('roomModal');
+            modal.classList.remove('hidden');
+            setTimeout(() => {modal.classList.remove('opacity-0');}, 10);
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('roomModal');
+            modal.classList.add('opacity-0');
+            setTimeout(() => {modal.classList.add('hidden');}, 500);
+            document.body.style.overflow = 'auto';
+        }
+
+        function openGallery(roomId, index) {
+            currentImageIndex = index;
+            const data = roomData[roomId];
+
+            const gallery = document.getElementById('galleryModal');
+            document.getElementById('galleryImage').src = data.images[currentImageIndex];
+            document.getElementById('galleryCounter').innerText = `${currentImageIndex + 1} / ${data.images.length}`;
+
+            gallery.classList.remove('hidden');
+            setTimeout(() => {gallery.classList.remove('opacity-0');}, 10);
+        }
+
+        function closeGallery() {
+            const gallery = document.getElementById('galleryModal');
+            gallery.classList.add('opacity-0');
+            setTimeout(() => {gallery.classList.add('hidden');}, 300);
+        }
+
+        function nextImage() {
+            const data = roomData[currentRoomId];
+            currentImageIndex = (currentImageIndex + 1) % data.images.length;
+            document.getElementById('galleryImage').src = data.images[currentImageIndex];
+            document.getElementById('galleryCounter').innerText = `${currentImageIndex + 1} / ${data.images.length}`;
+        }
+
+        function prevImage() {
+            const data = roomData[currentRoomId];
+            currentImageIndex = (currentImageIndex - 1 + data.images.length) % data.images.length;
+            document.getElementById('galleryImage').src = data.images[currentImageIndex];
+            document.getElementById('galleryCounter').innerText = `${currentImageIndex + 1} / ${data.images.length}`;
+        }
+
+        document.addEventListener('keydown', function (event) {
+            if (event.key === "Escape") {
+                const gallery = document.getElementById('galleryModal');
+                const room = document.getElementById('roomModal');
+
+                if (!gallery.classList.contains('hidden')) {
+                    closeGallery();
+                } else if (!room.classList.contains('hidden')) {
+                    closeModal();
+                }
+            }
+            if (!document.getElementById('galleryModal').classList.contains('hidden')) {
+                if (event.key === "ArrowRight") nextImage();
+                if (event.key === "ArrowLeft") prevImage();
+            }
+        });
+    </script>
+</body>
+
+</html>
