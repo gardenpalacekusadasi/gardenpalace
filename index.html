@@ -738,20 +738,19 @@
                 const checkinVal = new Date(checkinInput.value);
                 const checkoutVal = new Date(checkoutInput.value);
 
-                // SADECE CHECK-IN DEĞİŞTİĞİNDE TETİKLENEN KURAL
-                if (type === 'checkin') {
-                    const minCheckout = new Date(checkinVal);
-                    minCheckout.setDate(minCheckout.getDate() + 1);
-                    
-                    // KURAL 1: Check-out asla Check-in ve öncesi seçilemez (Takvimde kilitler)
-                    checkoutInput.min = formatDateToYYYYMMDD(minCheckout);
+                // Check-out'un inebileceği en düşük tarih (Check-in'den 1 gün sonrası)
+                const minCheckout = new Date(checkinVal);
+                minCheckout.setDate(minCheckout.getDate() + 1);
+                
+                // KURAL 1: PC'ler için Check-out takviminde geçmiş günleri kilitler
+                checkoutInput.min = formatDateToYYYYMMDD(minCheckout);
 
-                    // KURAL 2: Eğer Check-in, mevcut Check-out'u geçerse veya eşitlenirse, Check-out'u 1 gün sonraya at
-                    if (checkoutVal <= checkinVal) {
-                        checkoutInput.value = formatDateToYYYYMMDD(minCheckout);
-                        const coParts = checkoutInput.value.split('-');
-                        document.getElementById('checkoutDisplay').value = `${coParts[2]}/${coParts[1]}/${coParts[0]}`;
-                    }
+                // KURAL 2: İster Check-in değişsin ister Check-out (iPhone/Mobil), 
+                // eğer Check-out tarihi Check-in tarihine eşit veya gerisindeyse zorla 1 gün sonrasına atar
+                if (checkoutVal <= checkinVal) {
+                    checkoutInput.value = formatDateToYYYYMMDD(minCheckout);
+                    const coParts = checkoutInput.value.split('-');
+                    document.getElementById('checkoutDisplay').value = `${coParts[2]}/${coParts[1]}/${coParts[0]}`;
                 }
             }
         }
