@@ -729,9 +729,30 @@
             const dateInput = document.getElementById(type + 'Date');
             const displayInput = document.getElementById(type + 'Display');
             if (dateInput.value) {
+                // Görünümü GG/AA/YYYY yap
                 const parts = dateInput.value.split('-');
-                // Ekranda Kullanıcı Her Zaman GG/AA/YYYY Görecek
                 displayInput.value = `${parts[2]}/${parts[1]}/${parts[0]}`;
+
+                const checkinInput = document.getElementById('checkinDate');
+                const checkoutInput = document.getElementById('checkoutDate');
+                const checkinVal = new Date(checkinInput.value);
+                const checkoutVal = new Date(checkoutInput.value);
+
+                // SADECE CHECK-IN DEĞİŞTİĞİNDE TETİKLENEN KURAL
+                if (type === 'checkin') {
+                    const minCheckout = new Date(checkinVal);
+                    minCheckout.setDate(minCheckout.getDate() + 1);
+                    
+                    // KURAL 1: Check-out asla Check-in ve öncesi seçilemez (Takvimde kilitler)
+                    checkoutInput.min = formatDateToYYYYMMDD(minCheckout);
+
+                    // KURAL 2: Eğer Check-in, mevcut Check-out'u geçerse veya eşitlenirse, Check-out'u 1 gün sonraya at
+                    if (checkoutVal <= checkinVal) {
+                        checkoutInput.value = formatDateToYYYYMMDD(minCheckout);
+                        const coParts = checkoutInput.value.split('-');
+                        document.getElementById('checkoutDisplay').value = `${coParts[2]}/${coParts[1]}/${coParts[0]}`;
+                    }
+                }
             }
         }
 
@@ -747,8 +768,15 @@
             const checkoutDate = document.getElementById('checkoutDate');
 
             if (checkinDate && checkoutDate) {
+                // Check-in için dünü ve öncesini seçilemez yap
+                checkinDate.min = formatDateToYYYYMMDD(today);
+                
+                // İlk açılışta standart tarihler (Yarın ve Sonraki Gün)
                 checkinDate.value = formatDateToYYYYMMDD(tomorrow);
                 checkoutDate.value = formatDateToYYYYMMDD(dayAfterTomorrow);
+
+                // İlk açılışta Check-out'un seçilebilir ilk tarihini ayarla
+                checkoutDate.min = formatDateToYYYYMMDD(dayAfterTomorrow);
 
                 updateDateDisplay('checkin');
                 updateDateDisplay('checkout');
