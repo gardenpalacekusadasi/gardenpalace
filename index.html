@@ -683,9 +683,8 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         // Sayfa Animasyonları (Her inip çıkıldığında sürekli animasyonlu olması için AOS ayarları)
-        window.addEventListener('load', () => {
-            AOS.init({once: false, mirror: true, offset: 50, easing: 'ease-out-cubic'});
-            setTimeout(() => {AOS.refresh();}, 100);
+        document.addEventListener('DOMContentLoaded', () => {
+            AOS.init({once: true, offset: 30, easing: 'ease-out-cubic'});
         });
 
         // ÇOKLU DİL MOTORU
